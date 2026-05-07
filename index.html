@@ -7,40 +7,99 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;600&display=swap" rel="stylesheet">
     
     <style>
-        :root { --primary: #5d4d3d; --accent: #bcac96; --paper: #f9f6f0; --border: #d1c4b2; }
-        body { background-color: #e2ddd3; font-family: 'Cairo', sans-serif; color: var(--primary); margin: 0; padding: 15px; line-height: 1.6; }
-        .atlas-wrapper { max-width: 1000px; margin: 0 auto; background-color: var(--paper); border: 2px solid var(--border); padding: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.15); position: relative; }
-        .main-header { text-align: center; border-bottom: 3px double var(--accent); margin-bottom: 30px; padding-bottom: 15px; }
-        .main-header h1 { font-family: 'Aref Ruqaa', serif; font-size: clamp(2rem, 5vw, 3.2rem); margin: 0; }
-
-        .main-content { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 20px; }
-
-        /* تنسيق الصور */
-        .photo-gallery { display: flex; flex-direction: column; gap: 20px; align-items: center; }
-        .photo-frame { background: white; padding: 10px; border: 1px solid var(--border); box-shadow: 0 5px 15px rgba(0,0,0,0.05); width: 100%; }
-        .photo-frame img { width: 100%; height: auto; display: block; object-fit: cover; }
-
-        .info-card { background: rgba(255, 255, 255, 0.5); border: 1px solid var(--border); padding: 15px; margin-bottom: 15px; }
-        .card-title { font-family: 'Amiri', serif; font-weight: 700; color: #8b7355; border-bottom: 1px solid var(--accent); margin-bottom: 10px; display: block; font-size: 1.2rem; }
-
-        .detail-list { padding: 0; list-style: none; font-size: 0.9rem; }
-        .detail-list li { margin-bottom: 8px; padding-right: 15px; position: relative; }
-        .detail-list li::before { content: "◈"; position: absolute; right: 0; color: var(--accent); font-size: 0.7rem;}
-
-        .celebrity-tag { display: inline-block; background: #eee6da; padding: 3px 10px; border-radius: 4px; margin: 3px; font-size: 0.85rem; border: 1px solid var(--border); }
-
-        .full-width-card { grid-column: 1 / -1; margin-top: 10px; }
-
-        @media (max-width: 850px) {
-            .main-content { grid-template-columns: 1fr; }
-            .photo-gallery { order: -1; margin-bottom: 20px; }
+        :root { --primary: #5d4d3d; --accent: #bcac96; --paper: #f9f6f0; --border: #d1c4b2; --pink-soft: #f4e4e4; }
+        
+        body { 
+            background: linear-gradient(135deg, #e2ddd3 0%, #d6cfc1 100%); 
+            font-family: 'Cairo', sans-serif; 
+            color: var(--primary); 
+            margin: 0; 
+            padding: 15px; 
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        footer { text-align: center; margin-top: 30px; font-size: 0.8rem; opacity: 0.6; border-top: 1px solid var(--accent); padding-top: 10px; }
+
+        .atlas-wrapper { 
+            max-width: 1000px; 
+            margin: 40px auto; 
+            background-color: var(--paper); 
+            border: 1px solid var(--border); 
+            padding: 40px; 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.12); 
+            position: relative;
+            border-radius: 4px;
+            opacity: 0; /* للأنيميشن */
+            transform: translateY(20px);
+            transition: all 1s ease-out;
+        }
+
+        .atlas-wrapper.show { opacity: 1; transform: translateY(0); }
+
+        .main-header { text-align: center; border-bottom: 3px double var(--accent); margin-bottom: 30px; padding-bottom: 20px; }
+        .main-header h1 { font-family: 'Aref Ruqaa', serif; font-size: clamp(2.2rem, 5vw, 3.5rem); margin: 0; color: #4a3f35; }
+
+        .main-content { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 25px; }
+
+        .photo-frame { 
+            background: white; 
+            padding: 12px; 
+            border: 1px solid var(--border); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            width: 100%; 
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+        .photo-frame:hover { transform: scale(1.03) rotate(1deg); }
+        .photo-frame img { width: 100%; height: auto; display: block; object-fit: cover; border-radius: 2px; }
+
+        .info-card { 
+            background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(5px); 
+            border: 1px solid var(--border); 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+        .info-card:hover { background: rgba(255, 255, 255, 0.9); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+
+        .card-title { font-family: 'Amiri', serif; font-weight: 700; color: #8b7355; border-bottom: 1px solid var(--accent); margin-bottom: 12px; display: block; font-size: 1.3rem; }
+
+        .detail-list { padding: 0; list-style: none; font-size: 0.95rem; }
+        .detail-list li { margin-bottom: 10px; padding-right: 18px; position: relative; }
+        .detail-list li::before { content: "✧"; position: absolute; right: 0; color: var(--accent); font-weight: bold; }
+
+        .celebrity-tag { 
+            display: inline-block; 
+            background: #fff; 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            margin: 4px; 
+            font-size: 0.85rem; 
+            border: 1px solid var(--accent);
+            transition: all 0.3s;
+        }
+        .celebrity-tag:hover { background: var(--accent); color: white; transform: translateY(-2px); }
+
+        .full-width-card { grid-column: 1 / -1; }
+
+        /* تأثير القلوب */
+        .heart { position: fixed; color: #bcac96; font-size: 1rem; pointer-events: none; z-index: 999; animation: fly 4s linear infinite; opacity: 0; }
+        @keyframes fly {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @media (max-width: 850px) { .main-content { grid-template-columns: 1fr; } .photo-gallery { order: -1; } }
+        
+        footer { text-align: center; margin-top: 40px; font-size: 0.85rem; opacity: 0.7; border-top: 1px solid var(--accent); padding-top: 20px; font-family: 'Amiri', serif; }
     </style>
 </head>
 <body>
 
-<div class="atlas-wrapper">
+<div class="atlas-wrapper" id="mainAtlas">
     <header class="main-header">
         <h1>أطلس ملامح الجمال الطبيعي</h1>
         <p>دراسة بيومترية وتحليلية شاملة — لوحة رقم (27)</p>
@@ -49,18 +108,17 @@
     <div class="main-content">
         <div class="side-col">
             <div class="info-card">
-                <span class="card-title">🔬 تحليل البشرة الدافئة</span>
+                <span class="card-title">🔬 تحليل البشرة</span>
                 <ul class="detail-list">
-                    <li><b>اللون والنوع:</b> حنطية فاتحة (Light Wheatish) ذات أندرتون ذهبي دافئ.</li>
-                    <li><b>المميزات:</b> نضرة عالية، مخملية الملمس، وتعكس الضوء بنعومة فائقة.</li>
+                    <li><b>الدرجة:</b> حنطية ذهبية دافئة.</li>
+                    <li><b>المميزات:</b> تعكس الضوء في منطقة الوجنتين بشكل طبيعي (Natural Glow).</li>
                 </ul>
             </div>
             <div class="info-card">
                 <span class="card-title">👁️ هندسة العينين</span>
                 <ul class="detail-list">
-                    <li><b>الشكل:</b> لوزية كلاسيكية (Almond) ذات اتساع محدد.</li>
-                    <li><b>اللون:</b> بني داكن عميق (Espresso).</li>
-                    <li><b>المميزات:</b> حواجب طبيعية مقوسة بكثافة تعزز من جاذبية النظرة الهادئة.</li>
+                    <li><b>الشكل:</b> Almond Eyes بنظرة حادة وناعمة في آن واحد.</li>
+                    <li><b>التفاصيل:</b> حواجب مرتبة وكثيفة تبرز قوة الشخصية.</li>
                 </ul>
             </div>
         </div>
@@ -69,64 +127,98 @@
             <div class="photo-frame">
                 <img src="photo_2026-05-08_01-13-00.jpg" alt="النموذج الرئيسي">
             </div>
-            <div class="photo-frame" style="max-width: 85%;">
+            <div class="photo-frame" style="max-width: 80%;">
                 <img src="ورده.png" alt="وردة بيضاء نادرة">
-                <p style="font-family: 'Amiri', serif; font-style: italic; text-align: center; margin-top: 10px;">النبات الشبيه: الوردة البيضاء النادرة</p>
+                <p style="font-family: 'Amiri', serif; font-style: italic; text-align: center; margin-top: 10px; font-size: 0.9rem;">التطابق النباتي: الوردة البيضاء (نقاء وحضور)</p>
             </div>
         </div>
 
         <div class="side-col">
             <div class="info-card">
-                <span class="card-title">🦌 رمزية المها العربي</span>
+                <span class="card-title">🦌 الرمزية الحيوانية</span>
                 <ul class="detail-list">
-                    <li><b>التشبيه:</b> تطابق 95% مع اتساع عيون المها (الغزال العربي).</li>
-                    <li><b>المميزات:</b> نظرة تجمع بين الرقة الفطرية والقوة الكامنة، وحضور ملكي هادئ.</li>
+                    <li><b>التشبيه:</b> المها العربي.</li>
+                    <li><b>السبب:</b> اتساع العين وعمق النظرة التي توحي بالذكاء والهدوء.</li>
                 </ul>
             </div>
             <div class="info-card">
                 <span class="card-title">🌟 أشباه المشاهير</span>
-                <p style="font-size: 0.85rem;">بناءً على تناسق الملامح ورسمة العين:</p>
-                <div style="margin-top: 10px;">
-                    <span class="celebrity-tag">مايان السيد</span>
-                    <span class="celebrity-tag">نادين نجيم (العيون)</span>
-                    <span class="celebrity-tag">هنا الزاهد (الملامح)</span>
-                </div>
+                <p style="font-size: 0.85rem; margin-bottom: 10px; font-weight: bold;">عربياً:</p>
+                <span class="celebrity-tag">مايان السيد</span>
+                <span class="celebrity-tag">هنا الزاهد</span>
+                
+                <p style="font-size: 0.85rem; margin: 10px 0; font-weight: bold;">عالمياً:</p>
+                <span class="celebrity-tag">Zendaya (سحر العيون)</span>
+                <span class="celebrity-tag">Kendall Jenner (التناسق)</span>
+                <span class="celebrity-tag">Lily Collins (الحواجب)</span>
             </div>
         </div>
 
         <div class="full-width-card info-card">
             <span class="card-title">🏛️ 9 ملاحظات علمية دقيقة</span>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
                 <ul class="detail-list">
-                    <li>1. <b>بنية الوجه القلبية:</b> تعطي انطباعاً دائماً بالشباب والبراءة.</li>
-                    <li>2. <b>المسافة البيومترية:</b> تناسق مثالي بين العينين والحاجبين.</li>
-                    <li>3. <b>الانعكاس اللوني:</b> البشرة تمتص الضوء وتوزعه بنعومة.</li>
+                    <li>1. <b>النسبة الذهبية:</b> تناسق مذهل بين المسافة من الأنف للذقن.</li>
+                    <li>2. <b>بنية العظام:</b> عظام خد مرتفعة تعطي طابعاً ملكياً.</li>
+                    <li>3. <b>الوضوح:</b> ملامح "High Contrast" تجعلها تبرز في أي صورة.</li>
                 </ul>
                 <ul class="detail-list">
-                    <li>4. <b>زاوية العين:</b> ميلان خارجي بسيط يزيد من جاذبية النظرة.</li>
-                    <li>5. <b>النسبة الذهبية:</b> تطابق عالٍ في أبعاد الجبهة والذقن.</li>
-                    <li>6. <b>خط الحواجب:</b> كثافة طبيعية تتبع الانحناء التشريحي للعظمة.</li>
+                    <li>4. <b>منطقة العين:</b> توازن مثالي بين عرض العين والمسافة بينهما.</li>
+                    <li>5. <b>خط الفك:</b> محدد بنعومة (Soft Defined Jawline).</li>
+                    <li>6. <b>توزيع الضوء:</b> الوجه يمتلك زوايا تصوير مثالية (Photogenic).</li>
                 </ul>
                 <ul class="detail-list">
-                    <li>7. <b>الوضوح التعبيري:</b> ملامح مرنة تعطي تعبيرات قوية بهدوء.</li>
-                    <li>8. <b>الشفاه:</b> تناسق مثالي بين الشفة العليا والسفلى.</li>
-                    <li>9. <b>الهوية البصرية:</b> ملامح شرقية أصيلة بنسبة 100%.</li>
+                    <li>7. <b>الجاذبية الكامنة:</b> ملامح مريحة للعين تبعث على الثقة.</li>
+                    <li>8. <b>الشفاه:</b> انحناء Cupids Bow كلاسيكي ومثالي.</li>
+                    <li>9. <b>الطابع:</b> مزيج نادر بين الرقة والوقار.</li>
                 </ul>
             </div>
         </div>
 
-        <div class="full-width-card info-card" style="background: rgba(139, 115, 85, 0.1);">
-            <span class="card-title" style="text-align: center; border: none;">🕊️ الوصف العام المميز</span>
-            <p style="text-align: center; font-style: italic; font-size: 1.1rem; color: var(--primary);">
-                "جمال استثنائي يجمع بين وقار التاريخ ونعومة الحاضر. الوردة البيضاء في سكونها، والمها في نظرتها. ملامح لا تحتاج لتعريف، بل تفرض حضورها بهدوء وذكاء، كأنها لوحة رسمت بعناية فائقة لتكون أيقونة للرقة العربية الأصيلة."
+        <div class="full-width-card info-card" style="background: rgba(139, 115, 85, 0.08); border: 1px dashed var(--accent);">
+            <span class="card-title" style="text-align: center; border: none;">🕊️ الانطباع العام</span>
+            <p style="text-align: center; font-style: italic; font-size: 1.15rem; color: #4a3f35; max-width: 800px; margin: 0 auto;">
+                "ليست مجرد ملامح، بل هي حكاية جمال شرقي كتبتها الطبيعة بدقة. حضوركِ كأنه مقطوعة موسيقية هادئة في عالم صاخب؛ رقيقة كبتلات الورد الأبيض، وعميقة كعيون المها في ليلة قمرية."
             </p>
         </div>
     </div>
 
     <footer>
-        مفتاح الرموز: (-) ملاحظة شكل | (.) اتجاه قياس | (■) دراسة تركيب | (▲) تحليل بيوميتري
+        تم التحليل بواسطة أطلس الجمال الرقمي 2026 | (-) ملاحظة شكل | (■) دراسة تركيب | (▲) تحليل بيوميتري
     </footer>
 </div>
 
+<script>
+    // 1. أنيميشن ظهور الصفحة
+    window.onload = function() {
+        document.getElementById('mainAtlas').classList.add('show');
+        createHearts();
+    };
+
+    // 2. وظيفة القلوب المتطايرة بشكل رقيق
+    function createHearts() {
+        const symbols = ['✧', '♥', '✨', '🌸'];
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => { heart.remove(); }, 4000);
+        }, 600);
+    }
+
+    // 3. تأثير تفاعلي عند الضغط على الكروت
+    document.querySelectorAll('.info-card').forEach(card => {
+        card.onclick = function() {
+            this.style.borderColor = '#8b7355';
+            setTimeout(() => { this.style.borderColor = '#d1c4b2'; }, 500);
+        };
+    });
+</script>
+
 </body>
 </html>
+               
