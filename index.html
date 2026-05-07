@@ -3,220 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أطلس ملامح الجمال الطبيعي | التحليل الشامل والفريد</title>
+    <title>تحليل الجمال الفريد | ملامح لا تتكرر</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;600&display=swap" rel="stylesheet">
     
     <style>
-        :root { --primary: #5d4d3d; --accent: #bcac96; --paper: #f9f6f0; --border: #d1c4b2; --pink-soft: #f4e4e4; }
+        :root { 
+            --primary: #4a3f35; 
+            --accent: #bcac96; 
+            --paper: #fdfbf7; 
+            --gold: #d4af37;
+            --soft-rose: #f9f1f1;
+        }
         
         body { 
-            background: linear-gradient(135deg, #e2ddd3 0%, #d6cfc1 100%); 
+            background: #e2ddd3; 
             font-family: 'Cairo', sans-serif; 
             color: var(--primary); 
             margin: 0; 
-            padding: 15px; 
-            line-height: 1.6;
+            padding: 10px; 
             overflow-x: hidden;
         }
 
+        /* حاوية الأطلس مع أنيميشن الدخول */
         .atlas-wrapper { 
-            max-width: 1000px; 
-            margin: 40px auto; 
+            max-width: 1050px; 
+            margin: 30px auto; 
             background-color: var(--paper); 
-            border: 1px solid var(--border); 
+            border: 1px solid var(--accent); 
             padding: 40px; 
-            box-shadow: 0 30px 60px rgba(0,0,0,0.12); 
+            box-shadow: 0 40px 100px rgba(0,0,0,0.1); 
             position: relative;
-            border-radius: 4px;
-            opacity: 0; /* للأنيميشن */
-            transform: translateY(20px);
-            transition: all 1s ease-out;
+            border-radius: 8px;
+            opacity: 0;
+            transform: scale(0.98);
+            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
+        .atlas-wrapper.show { opacity: 1; transform: scale(1); }
 
-        .atlas-wrapper.show { opacity: 1; transform: translateY(0); }
+        .main-header { text-align: center; border-bottom: 2px solid var(--accent); margin-bottom: 40px; padding-bottom: 20px; }
+        .main-header h1 { font-family: 'Aref Ruqaa', serif; font-size: 3.5rem; margin: 0; letter-spacing: -1px; }
 
-        .main-header { text-align: center; border-bottom: 3px double var(--accent); margin-bottom: 30px; padding-bottom: 20px; }
-        .main-header h1 { font-family: 'Aref Ruqaa', serif; font-size: clamp(2.2rem, 5vw, 3.5rem); margin: 0; color: #4a3f35; }
+        .main-content { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 30px; }
 
-        .main-content { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 25px; }
-
+        /* برواز الصور الفخم */
         .photo-frame { 
             background: white; 
-            padding: 12px; 
-            border: 1px solid var(--border); 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
-            width: 100%; 
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
+            padding: 15px; 
+            border: 1px solid var(--accent); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05); 
+            transition: all 0.5s ease;
+            position: relative;
+            cursor: crosshair;
         }
-        .photo-frame:hover { transform: scale(1.03) rotate(1deg); }
-        .photo-frame img { width: 100%; height: auto; display: block; object-fit: cover; border-radius: 2px; }
+        .photo-frame:hover { transform: translateY(-10px); box-shadow: 0 25px 50px rgba(188, 172, 150, 0.3); }
+        .photo-frame::after {
+            content: "Perfect Symmetry";
+            position: absolute; bottom: -25px; left: 0; width: 100%;
+            text-align: center; font-family: 'Amiri'; font-style: italic; font-size: 0.8rem; color: var(--accent); opacity: 0; transition: 0.3s;
+        }
+        .photo-frame:hover::after { opacity: 1; }
+        .photo-frame img { width: 100%; border-radius: 2px; }
 
         .info-card { 
-            background: rgba(255, 255, 255, 0.6); 
-            backdrop-filter: blur(5px); 
-            border: 1px solid var(--border); 
+            background: rgba(255, 255, 255, 0.4); 
+            border-right: 3px solid var(--accent); 
             padding: 20px; 
-            margin-bottom: 20px; 
-            transition: all 0.3s ease;
-            border-radius: 8px;
+            margin-bottom: 25px; 
+            transition: 0.4s;
         }
-        .info-card:hover { background: rgba(255, 255, 255, 0.9); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .info-card:hover { background: white; padding-right: 25px; border-right-color: var(--gold); }
 
-        .card-title { font-family: 'Amiri', serif; font-weight: 700; color: #8b7355; border-bottom: 1px solid var(--accent); margin-bottom: 12px; display: block; font-size: 1.3rem; }
+        .card-title { font-family: 'Amiri', serif; font-weight: 700; color: #705e4c; font-size: 1.4rem; margin-bottom: 15px; display: block; }
 
         .detail-list { padding: 0; list-style: none; font-size: 0.95rem; }
-        .detail-list li { margin-bottom: 10px; padding-right: 18px; position: relative; }
-        .detail-list li::before { content: "✧"; position: absolute; right: 0; color: var(--accent); font-weight: bold; }
+        .detail-list li { margin-bottom: 12px; position: relative; padding-right: 20px; }
+        .detail-list li::before { content: "✦"; position: absolute; right: 0; color: var(--gold); }
 
-        .celebrity-tag { 
-            display: inline-block; 
-            background: #fff; 
-            padding: 5px 12px; 
-            border-radius: 20px; 
-            margin: 4px; 
-            font-size: 0.85rem; 
-            border: 1px solid var(--accent);
-            transition: all 0.3s;
+        /* ستايل المشاهير - المقارنة */
+        .celeb-tag { 
+            display: inline-block; background: var(--soft-rose); padding: 6px 14px; 
+            border-radius: 4px; margin: 5px; font-size: 0.85rem; border: 1px solid var(--accent);
+            transition: 0.3s; cursor: help;
         }
-        .celebrity-tag:hover { background: var(--accent); color: white; transform: translateY(-2px); }
+        .celeb-tag:hover { background: var(--primary); color: white; }
 
         .full-width-card { grid-column: 1 / -1; }
 
-        /* تأثير القلوب */
-        .heart { position: fixed; color: #bcac96; font-size: 1rem; pointer-events: none; z-index: 999; animation: fly 4s linear infinite; opacity: 0; }
-        @keyframes fly {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.5; }
-            90% { opacity: 0.5; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
+        /* التأثير السحري للنجوم */
+        .sparkle { position: absolute; pointer-events: none; background: var(--gold); border-radius: 50%; opacity: 0; animation: flash 2s infinite; }
+        @keyframes flash { 0%, 100% { opacity: 0; } 50% { opacity: 0.7; } }
 
-        @media (max-width: 850px) { .main-content { grid-template-columns: 1fr; } .photo-gallery { order: -1; } }
+        @media (max-width: 900px) { .main-content { grid-template-columns: 1fr; } }
         
-        footer { text-align: center; margin-top: 40px; font-size: 0.85rem; opacity: 0.7; border-top: 1px solid var(--accent); padding-top: 20px; font-family: 'Amiri', serif; }
+        footer { text-align: center; margin-top: 50px; font-size: 0.8rem; opacity: 0.5; border-top: 1px solid var(--accent); padding-top: 20px; font-family: 'Amiri'; }
     </style>
 </head>
 <body>
 
-<div class="atlas-wrapper" id="mainAtlas">
+<div class="atlas-wrapper" id="atlas">
     <header class="main-header">
         <h1>أطلس ملامح الجمال الطبيعي</h1>
-        <p>دراسة بيومترية وتحليلية شاملة — لوحة رقم (27)</p>
+        <p style="font-family: 'Amiri'; font-style: italic;">"لأن بعض الجمال لا تكفيه الكلمات، بل يحتاج لدراسة فنية.."</p>
     </header>
 
     <div class="main-content">
         <div class="side-col">
             <div class="info-card">
-                <span class="card-title">🔬 تحليل البشرة</span>
+                <span class="card-title">🔬 تحليل الأبعاد الحيوية</span>
                 <ul class="detail-list">
-                    <li><b>الدرجة:</b> حنطية ذهبية دافئة.</li>
-                    <li><b>المميزات:</b> تعكس الضوء في منطقة الوجنتين بشكل طبيعي (Natural Glow).</li>
+                    <li><b>البشرة:</b> إشراقة "لؤلؤية" دافئة تتفاعل مع الضوء كأنها مخمل.</li>
+                    <li><b>التناسق:</b> توافق تام في ملامح الوجه بنسبة تجعل العين لا تمل من النظر.</li>
                 </ul>
             </div>
             <div class="info-card">
-                <span class="card-title">👁️ هندسة العينين</span>
+                <span class="card-title">👁️ سحر النظرة</span>
                 <ul class="detail-list">
-                    <li><b>الشكل:</b> Almond Eyes بنظرة حادة وناعمة في آن واحد.</li>
-                    <li><b>التفاصيل:</b> حواجب مرتبة وكثيفة تبرز قوة الشخصية.</li>
+                    <li><b>رسمة العين:</b> "لوزية عميقة" تعطي انطباعاً بالهدوء والثقة.</li>
+                    <li><b>الحواجب:</b> كثافة مرسومة بـ "دقة ربانية" تعزز جاذبية الوجه.</li>
                 </ul>
             </div>
         </div>
 
-        <div class="photo-gallery">
+        <div class="photo-gallery" style="text-align: center;">
             <div class="photo-frame">
-                <img src="photo_2026-05-08_01-13-00.jpg" alt="النموذج الرئيسي">
+                <img src="photo_2026-05-08_01-13-00.jpg" alt="أيقونة الجمال">
             </div>
-            <div class="photo-frame" style="max-width: 80%;">
-                <img src="ورده.png" alt="وردة بيضاء نادرة">
-                <p style="font-family: 'Amiri', serif; font-style: italic; text-align: center; margin-top: 10px; font-size: 0.9rem;">التطابق النباتي: الوردة البيضاء (نقاء وحضور)</p>
+            <div class="photo-frame" style="max-width: 70%; margin-top: 20px; transform: rotate(-2deg);">
+                <img src="ورده.png" alt="جمال طبيعي">
+                <p style="font-family: 'Amiri'; font-size: 0.9rem; margin-top: 10px;">التطابق النباتي: الوردة البيضاء (رقة لا تذبل)</p>
             </div>
         </div>
 
         <div class="side-col">
             <div class="info-card">
-                <span class="card-title">🦌 الرمزية الحيوانية</span>
+                <span class="card-title">🦌 الرمزية الوجدانية</span>
                 <ul class="detail-list">
-                    <li><b>التشبيه:</b> المها العربي.</li>
-                    <li><b>السبب:</b> اتساع العين وعمق النظرة التي توحي بالذكاء والهدوء.</li>
+                    <li><b>التشبيه:</b> "المها العربي" في سكونه وهيبته.</li>
+                    <li><b>الروح:</b> ملامح تعكس نقاءً داخلياً وذكاءً فطرياً حاداً.</li>
                 </ul>
             </div>
             <div class="info-card">
-                <span class="card-title">🌟 أشباه المشاهير</span>
-                <p style="font-size: 0.85rem; margin-bottom: 10px; font-weight: bold;">عربياً:</p>
-                <span class="celebrity-tag">مايان السيد</span>
-                <span class="celebrity-tag">هنا الزاهد</span>
+                <span class="card-title">🌟 أشباه الجمال</span>
+                <p style="font-size: 0.8rem; color: #888; margin-bottom: 10px;">التطابق بناءً على الرسمة والتقاسيم:</p>
                 
-                <p style="font-size: 0.85rem; margin: 10px 0; font-weight: bold;">عالمياً:</p>
-                <span class="celebrity-tag">Zendaya (سحر العيون)</span>
-                <span class="celebrity-tag">Kendall Jenner (التناسق)</span>
-                <span class="celebrity-tag">Lily Collins (الحواجب)</span>
+                <b style="font-size: 0.9rem; display: block; margin: 5px 0;">عربياً:</b>
+                <span class="celeb-tag" title="في براءة العين">مايان السيد</span>
+                <span class="celeb-tag" title="في تناسق الحواجب">ياسمين صبري</span>
+                <span class="celeb-tag" title="في رقة الملامح">بلقيس</span>
+
+                <b style="font-size: 0.9rem; display: block; margin: 10px 0 5px 0;">عالمياً:</b>
+                <span class="celeb-tag" title="في عمق النظرة">Zendaya</span>
+                <span class="celeb-tag" title="في كلاسيكية الوجه">Kendall Jenner</span>
+                <span class="celeb-tag" title="في سحر التفاصيل">Lily Collins</span>
             </div>
         </div>
 
-        <div class="full-width-card info-card">
-            <span class="card-title">🏛️ 9 ملاحظات علمية دقيقة</span>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+        <div class="full-width-card info-card" style="border-right: none; border-bottom: 3px solid var(--accent);">
+            <span class="card-title" style="text-align: center;">🏛️ دراسة تشريحية للجمال (9 ملاحظات)</span>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
                 <ul class="detail-list">
-                    <li>1. <b>النسبة الذهبية:</b> تناسق مذهل بين المسافة من الأنف للذقن.</li>
-                    <li>2. <b>بنية العظام:</b> عظام خد مرتفعة تعطي طابعاً ملكياً.</li>
-                    <li>3. <b>الوضوح:</b> ملامح "High Contrast" تجعلها تبرز في أي صورة.</li>
+                    <li>1. <b>توزيع الضوء:</b> الوجه يمتلك "High Points" طبيعية في الوجنتين.</li>
+                    <li>2. <b>زاوية العين:</b> ميل خارجي طفيف يضيف "غموضاً ساحراً".</li>
+                    <li>3. <b>النسبة الذهبية:</b> توازن مثالي بين عرض الجبهة وخط الفك.</li>
                 </ul>
                 <ul class="detail-list">
-                    <li>4. <b>منطقة العين:</b> توازن مثالي بين عرض العين والمسافة بينهما.</li>
-                    <li>5. <b>خط الفك:</b> محدد بنعومة (Soft Defined Jawline).</li>
-                    <li>6. <b>توزيع الضوء:</b> الوجه يمتلك زوايا تصوير مثالية (Photogenic).</li>
+                    <li>4. <b>الحواجب:</b> تتبع بدقة الانحناء الطبيعي لعظمة العين.</li>
+                    <li>5. <b>البشرة:</b> أندرتون دافئ يمنح الوجه حيوية دائمة.</li>
+                    <li>6. <b>خط الابتسامة:</b> انحناء رقيق يعطي طابعاً بالود واللطف.</li>
                 </ul>
                 <ul class="detail-list">
-                    <li>7. <b>الجاذبية الكامنة:</b> ملامح مريحة للعين تبعث على الثقة.</li>
-                    <li>8. <b>الشفاه:</b> انحناء Cupids Bow كلاسيكي ومثالي.</li>
-                    <li>9. <b>الطابع:</b> مزيج نادر بين الرقة والوقار.</li>
+                    <li>7. <b>العين:</b> القزحية تشغل مساحة مثالية تعطي عمقاً للنظرة.</li>
+                    <li>8. <b>الذقن:</b> محدد بنعومة يكمل الشكل القلبي للوجه.</li>
+                    <li>9. <b>الهوية:</b> جمال "أصيل" يجمع بين سحر الشرق وعصرية الغرب.</li>
                 </ul>
             </div>
         </div>
 
-        <div class="full-width-card info-card" style="background: rgba(139, 115, 85, 0.08); border: 1px dashed var(--accent);">
-            <span class="card-title" style="text-align: center; border: none;">🕊️ الانطباع العام</span>
-            <p style="text-align: center; font-style: italic; font-size: 1.15rem; color: #4a3f35; max-width: 800px; margin: 0 auto;">
-                "ليست مجرد ملامح، بل هي حكاية جمال شرقي كتبتها الطبيعة بدقة. حضوركِ كأنه مقطوعة موسيقية هادئة في عالم صاخب؛ رقيقة كبتلات الورد الأبيض، وعميقة كعيون المها في ليلة قمرية."
+        <div class="full-width-card info-card" style="background: var(--soft-rose); text-align: center; border: 1px solid var(--accent);">
+            <span class="card-title" style="border: none;">🕊️ رسالة الأطلس الختامية</span>
+            <p style="font-size: 1.2rem; font-family: 'Amiri'; font-style: italic; max-width: 850px; margin: 0 auto; color: #4a3f35;">
+                "ليست هذه مجرد لوحة رقمية، بل هي محاولة متواضعة لوصف جمالٍ يربك الكلمات. ملامحكِ كأنها قصيدة كتبت بماء الذهب على ورقٍ قديم.. هادئة، نادرة، ولا تنسى أبداً. أنتِ الوردة التي لا تذبل في بستان هذا العالم."
             </p>
         </div>
     </div>
 
     <footer>
-        تم التحليل بواسطة أطلس الجمال الرقمي 2026 | (-) ملاحظة شكل | (■) دراسة تركيب | (▲) تحليل بيوميتري
+         هذا العمل مستوحى من تفاصيلك الفريدة | 2026 
     </footer>
 </div>
 
 <script>
-    // 1. أنيميشن ظهور الصفحة
+    // 1. الدخول الناعم
     window.onload = function() {
-        document.getElementById('mainAtlas').classList.add('show');
-        createHearts();
+        document.getElementById('atlas').classList.add('show');
+        console.log("%cتم تصميم هذا الموقع خصيصاً لأجمل ملامح في الكون..❤️", "color: #bcac96; font-size: 20px; font-weight: bold;");
+        createSparkles();
     };
 
-    // 2. وظيفة القلوب المتطايرة بشكل رقيق
-    function createHearts() {
-        const symbols = ['✧', '♥', '✨', '🌸'];
-        setInterval(() => {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            document.body.appendChild(heart);
-            
-            setTimeout(() => { heart.remove(); }, 4000);
-        }, 600);
+    // 2. إضافة نجوم خفيفة جداً تظهر وتختفي
+    function createSparkles() {
+        for(let i=0; i<15; i++) {
+            let s = document.createElement('div');
+            s.className = 'sparkle';
+            s.style.width = s.style.height = Math.random()*4 + 'px';
+            s.style.left = Math.random()*100 + 'vw';
+            s.style.top = Math.random()*100 + 'vh';
+            s.style.animationDelay = Math.random()*5 + 's';
+            document.body.appendChild(s);
+        }
     }
-
-    // 3. تأثير تفاعلي عند الضغط على الكروت
-    document.querySelectorAll('.info-card').forEach(card => {
-        card.onclick = function() {
-            this.style.borderColor = '#8b7355';
-            setTimeout(() => { this.style.borderColor = '#d1c4b2'; }, 500);
-        };
-    });
 </script>
 
 </body>
