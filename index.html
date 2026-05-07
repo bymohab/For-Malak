@@ -37,18 +37,16 @@
             transition: all 0.8s ease-out;
         }
         .atlas-card.reveal { opacity: 1; transform: translateY(0); }
-
-        /* برواز الصور الموبايل - النسخة المظبوطة */
+/* برواز الصور الموبايل - النسخة اللي بتظهر كل التفاصيل */
 .main-img-wrapper { 
     position: relative; 
-    width: 85%; /* خليناها أصغر شوية من عرض الشاشة */
-    max-width: 320px; /* أقصى عرض عشان م تفرش في الشاشات الكبيرة */
-    aspect-ratio: 3/4; /* بيجبر الصورة تاخد شكل برواز احترافي */
-    margin: 0 auto 30px auto; /* توسيط في نص الصفحة */
-    border: 10px solid white; 
-    box-shadow: 0 20px 50px rgba(0,0,0,0.1); 
-    border-radius: 8px; 
-    overflow: hidden;
+    width: 90%; /* عرض مناسب للموبايل */
+    max-width: 350px; /* عشان متكبرش زيادة عن اللزوم */
+    margin: 0 auto 30px auto; /* توسيط */
+    background: white; /* خلفية البرواز */
+    padding: 10px; /* المسافة اللي بتعمل شكل الصورة الفوتوغرافية */
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,9 +54,11 @@
 
 .main-img-wrapper img { 
     width: 100%; 
-    height: 100%; 
-    object-fit: cover; /* أهم خاصية: بتخلي الصورة تملا البرواز من غير ما تتمط */
+    height: auto; /* بيحافظ على تناسب الطول مع العرض الأصلي */
+    max-height: 450px; /* بيمنع الصورة إنها تطول بزيادة وتسحب الصفحة لتحت */
+    object-fit: contain; /* أهم خاصية: بتبين الصورة كاملة بدون قص */
     display: block; 
+    border-radius: 2px;
 }
         .card-title { 
             font-family: 'Aref Ruqaa', serif; color: var(--gold); 
